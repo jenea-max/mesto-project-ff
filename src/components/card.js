@@ -11,22 +11,24 @@ export function createCard(item, cardDelete, handleLike, handleImageClick) {
   cardImage.src = item.link;
   cardImage.alt = item.name;
   cardTitle.textContent = item.name;
-  deleteButton.addEventListener("click", (event) => cardDelete(event));
-  likeButton.addEventListener("click", (event) => handleLike(event));
-  cardImage.addEventListener("click", (event) => handleImageClick(event));
+  deleteButton.addEventListener("click", cardDelete);
+  likeButton.addEventListener("click", handleLike);
+  cardImage.addEventListener("click", handleImageClick);
   return copyListItem;
-} 
+};
+
 // @todo: Функция удаления карточки
 export function cardDelete (event) {
   const card = event.target.closest('.card');
   card.remove() ;
-}
+};
 
 // @todo: Функция лайка карточки
 export function handleLike(event) {
   const likeButton = event.target;
   likeButton.classList.toggle('card__like-button_is-active');
-}
+};
+
 // @todo: Функция увеличения фотографии карточки
 export function handleImageClick(event) {
   const imageSrc = event.target.getAttribute('src');
@@ -39,4 +41,4 @@ export function handleImageClick(event) {
   popupImageElement.alt = imageAlt;
   popupCaptionElement.textContent = imageAlt;
   openModal(popupImage);
-}
+};

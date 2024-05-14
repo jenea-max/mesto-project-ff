@@ -47,23 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // @todo: обработчики события закрытия мод. окна через ESC
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-      const openedPopup = document.querySelector('.popup_is-opened');
-      if (openedPopup) {
-        closeModal(openedPopup);
-      }
-    }
-  });
-
-  // @todo: обработчики события закрытия мод. окна через Оверлэй
-  document.addEventListener('click', (event) => {
-    if (event.target.classList.contains('popup_is-opened')) {
-      closeModal(event.target);
-    }
-  });
-
   // @todo: функция для редактирования профиля
   function openEditProfileModal() {
     nameInput.value = profileNameElement.textContent;
@@ -101,6 +84,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   //@todo: добавляем обработчик события submit для формы добавления новой карточки
   addCardForm.addEventListener('submit', addNewCard);
+
+  //@todo: отработчик, открывающий попап при клике по изображению карточки
+  document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('card__image')) {
+      handleImageClick(event);
+    };
+  });
 });
-
-
