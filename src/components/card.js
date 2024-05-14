@@ -1,5 +1,3 @@
-import { openModal } from '../components/modal.js';
-
 // @todo: Функция создания карточки
 export function createCard(item, cardDelete, handleLike, handleImageClick) {
   const listItem = document.querySelector('#card-template').content;
@@ -27,18 +25,4 @@ export function cardDelete (event) {
 export function handleLike(event) {
   const likeButton = event.target;
   likeButton.classList.toggle('card__like-button_is-active');
-};
-
-// @todo: Функция увеличения фотографии карточки
-export function handleImageClick(event) {
-  const imageSrc = event.target.getAttribute('src');
-  const imageAlt = event.target.getAttribute('alt');
-  const popupImage = document.querySelector('.popup_type_image');
-  const popupImageContent = popupImage.querySelector('.popup__content');
-  const popupImageElement = popupImageContent.querySelector('.popup__image');
-  const popupCaptionElement = popupImageContent.querySelector('.popup__caption');
-  popupImageElement.src = imageSrc;
-  popupImageElement.alt = imageAlt;
-  popupCaptionElement.textContent = imageAlt;
-  openModal(popupImage);
 };

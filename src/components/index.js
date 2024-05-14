@@ -1,15 +1,14 @@
 import '../pages/index.css';
 import { initialCards } from '../components/cards.js';
-import { createCard,  cardDelete,  handleLike, handleImageClick} from '../components/card.js';
+import { createCard,  cardDelete,  handleLike} from '../components/card.js';
 import { openModal, closeModal } from '../components/modal.js';
 const list = document.querySelector('.places__list');
 
-// @todo: Вывести карточки на страницу
-initialCards.forEach(function (item) {
-  list.append(createCard(item, cardDelete, handleLike, handleImageClick));
-});
-
 document.addEventListener('DOMContentLoaded', () => {
+  // @todo: Вывести карточки на страницу
+  initialCards.forEach(function (item) {
+  list.append(createCard(item, cardDelete, handleLike, handleImageClick));
+  });
 
   // @todo: поиск DOM-элементов на странице для открытия и закрытия модальных окон
   const openEditPopupButton = document.querySelector('.profile__edit-button');
@@ -33,7 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const addCardForm = addCardModal.querySelector('.popup__form');
 
   // @todo: навешивание обработчиков события открытия мод. окна
-  openEditPopupButton.addEventListener('click', () => openModal(popupEdit));
+  openEditPopupButton.addEventListener('click', () => {
+    nameInput.value = profileNameElement.textContent;
+    descriptionInput.value = profileDescriptionElement.textContent;
+    openModal(popupEdit);
+  });
   openAddPopupButton.addEventListener('click', () => openModal(popupNewCard));
   openImagePopupButton.addEventListener('click', () => openModal(popupImage));
 
@@ -85,10 +88,18 @@ document.addEventListener('DOMContentLoaded', () => {
   //@todo: добавляем обработчик события submit для формы добавления новой карточки
   addCardForm.addEventListener('submit', addNewCard);
 
-  //@todo: отработчик, открывающий попап при клике по изображению карточки
-  document.addEventListener('click', function(event) {
-    if (event.target.classList.contains('card__image')) {
-      handleImageClick(event);
-    };
-  });
+  //@todo: функция увеличения фотографии карточки
+  function handleImageClick(event) {
+    const imageSrc = event.target.getAttribute('src');
+    const imageAlt = event.target.getAttribute('alt');
+    const popupImage = document.querySelector('.popup_type_image');
+    const popupImageContent = popupImage.querySelector('.popup__content');
+    const popupImageElement = popupImageContent.querySelector('.popup__image');
+    const popupCaptionElement = popupImageContent.querySelector('.popup__caption');
+    popupImageElement.src = imageSrc;
+    popupImageElement.alt = imageAlt;
+    popupCaptionElement.textContent = imageAlt;
+    openModal(popupImage);
+  };
 });
+
