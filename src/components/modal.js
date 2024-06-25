@@ -1,30 +1,17 @@
-// @todo: Функция открытия модального окна
-export function openModal(popupElement) {
-  popupElement.classList.add('popup_is-opened');
-  document.addEventListener('keydown', closeModalByEsc); 
-  popupElement.addEventListener('mousedown', closeModalByOverlay); 
-};
+export function closeModal(popup) {
+  popup.classList.remove('popup_is-opened');
+  document.removeEventListener('keydown', closeByEsc);
+}
 
-// @todo: Функция закрытия модального окна
-export function closeModal(popupElement) {
-  popupElement.classList.remove('popup_is-opened');
-  document.removeEventListener('keydown', closeModalByEsc);
-  popupElement.removeEventListener('mousedown', closeModalByOverlay);
-};
+export function openModal(popup) {
+  popup.classList.add('popup_is-opened');
+  document.addEventListener('keydown', closeByEsc);
+}
 
-// @todo: Функция закрытия модального окна по ESC
-export function closeModalByEsc(event) {
-  if (event.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_is-opened');
-    if (openedPopup) {
+function closeByEsc(evt) {
+  if (evt.key === "Escape") {
+      const openedPopup = document.querySelector('.popup_is-opened')
       closeModal(openedPopup);
-    };
-  };
-};
+  }
+}
 
-// @todo: Функция закрытия модального окна по Оверлею
-export function closeModalByOverlay(event) {
-  if (event.target.classList.contains('popup_is-opened')) {
-    closeModal(event.target);
-  };
-};
